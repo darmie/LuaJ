@@ -155,8 +155,8 @@ or an InputStream to be loaded as text source "t", or binary lua file "b":
 
 A simple example may be found in
 
-<pre>	[examples/jse/SampleJseMain.java](examples/jse/SampleJseMain.java)
-</pre>
+[examples/jse/SampleJseMain.java](examples/jse/SampleJseMain.java)
+
 
 You must include the library **lib/luaj-jse-3.0.jar** in your class path.
 
@@ -176,15 +176,15 @@ The file must be a resource within within the midlet jar for the loader to find 
 
 A simple example may be found in
 
-<pre>	[examples/jme/SampleMIDlet.java](examples/jme/SampleMIDlet.java)
-</pre>
+[examples/jme/SampleMIDlet.java](examples/jme/SampleMIDlet.java)
+
 
 You must include the library **lib/luaj-jme-3.0.jar** in your midlet jar.
 
 An ant script to build and run the midlet is in
 
-<pre>	[build-midlet.xml](build-midlet.xml)
-</pre>
+[build-midlet.xml](build-midlet.xml)
+
 
 You must install the wireless toolkit and define _WTK_HOME_ for this script to work.
 
@@ -207,8 +207,8 @@ You must include the library **lib/luaj-jse-3.0.jar** in your class path.
 
 A working example may be found in
 
-<pre>	[examples/jse/ScriptEngineSample.java](examples/jse/ScriptEngineSample.java)
-</pre>
+	[examples/jse/ScriptEngineSample.java](examples/jse/ScriptEngineSample.java)
+
 
 To compile and run it using Java 1.6 or higher:
 
@@ -439,12 +439,12 @@ See the [Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html)
 
 The simplest way to implement a function is to choose a base class based on the number of arguments to the function. LuaJ provides 5 base classes for this purpose, depending if the function has 0, 1, 2, 3 or variable arguments, and if it provide multiple return values.
 
-<pre>	 [org.luaj.vm2.lib.ZeroArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/ZeroArgFunction.html)
+	 [org.luaj.vm2.lib.ZeroArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/ZeroArgFunction.html)
 	 [org.luaj.vm2.lib.OneArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/OneArgFunction.html)
 	 [org.luaj.vm2.lib.TwoArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/TwoArgFunction.html)
 	 [org.luaj.vm2.lib.ThreeArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/ThreeArgFunction.html)
 	 [org.luaj.vm2.lib.VarArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/VarArgFunction.html)
-</pre>
+
 
 Each of these functions has an abstract method that must be implemented, and argument fixup is done automatically by the classes as each Java function is invoked.
 
@@ -573,8 +573,8 @@ For example, to parse a file and print all variable names, use code like:
 
 An example that prints locations of all function definitions in a file may be found in
 
-<pre>	[examples/jse/SampleParser.java](examples/jse/SampleParser.java)
-</pre>
+	[examples/jse/SampleParser.java](examples/jse/SampleParser.java)
+
 
 See the [org.luaj.vm2.ast package](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/ast/package-summary.html) javadoc for the API relating to the syntax tree that is produced.
 
@@ -604,8 +604,7 @@ while for JME projects, use the luaj-jme jar:
 
 An example skelton maven pom file for a skeleton project is in
 
-<pre>	[examples/maven/pom.xml](examples/maven/pom.xml)
-</pre>
+	[examples/maven/pom.xml](examples/maven/pom.xml)
 
 ## Building the jars
 
@@ -631,9 +630,8 @@ Unit test scripts can be found in these locations
 ## Code coverage
 
 A build script for running unit tests and producing code coverage statistics is in
+	[build-coverage.xml](build-coverage.xml)
 
-<pre>	[build-coverage.xml](build-coverage.xml)
-</pre>
 
 It relies on the cobertura code coverage library.
 
@@ -643,9 +641,9 @@ It relies on the cobertura code coverage library.
 
 Downloads for all version available on SourceForge or LuaForge. Sources are hosted on SourceForge and available via sourceforge.net
 
-<pre>	[SourceForge Luaj Project Page](http://luaj.sourceforge.net/)
+	[SourceForge Luaj Project Page](http://luaj.sourceforge.net/)
 	[SourceForge Luaj Download Area](http://sourceforge.net/project/platformdownload.php?group_id=197627)
-</pre>
+
 
 The jar files may also be downloaded from the maven central repository, see [Maven Integration](#maven).
 
