@@ -93,11 +93,7 @@ To see how luaj can be used to acccess most Java API's including swing, try:
 <pre>	java -cp lib/luaj-jse-3.0.jar lua examples/lua/swingapp.lua
 </pre>
 
-Links to sources:
-
-<pre>	[examples/lua/hello.lua](examples/lua/hello.lua)
-	[examples/lua/swingapp.lua](examples/lua/swingapp.lua)
-</pre>
+Links to sources:	[examples/lua/hello.lua](examples/lua/hello.lua) [examples/lua/swingapp.lua](examples/lua/swingapp.lua)
 
 ## Compile lua source to lua bytecode
 
@@ -153,9 +149,7 @@ or an InputStream to be loaded as text source "t", or binary lua file "b":
 <pre>	chunk = globals.load(new FileInputSStream("examples/lua/hello.lua"), "main.lua", "bt"));
 </pre>
 
-A simple example may be found in
-
-[examples/jse/SampleJseMain.java](examples/jse/SampleJseMain.java)
+A simple example may be found in [examples/jse/SampleJseMain.java](examples/jse/SampleJseMain.java)
 
 
 You must include the library **lib/luaj-jse-3.0.jar** in your class path.
@@ -174,16 +168,12 @@ For MIDlets the _JmePlatform_ is used instead:
 
 The file must be a resource within within the midlet jar for the loader to find it. Any files included via _require()_ must also be part of the midlet resources.
 
-A simple example may be found in
-
-[examples/jme/SampleMIDlet.java](examples/jme/SampleMIDlet.java)
+A simple example may be found in [examples/jme/SampleMIDlet.java](examples/jme/SampleMIDlet.java)
 
 
 You must include the library **lib/luaj-jme-3.0.jar** in your midlet jar.
 
-An ant script to build and run the midlet is in
-
-[build-midlet.xml](build-midlet.xml)
+An ant script to build and run the midlet is in [build-midlet.xml](build-midlet.xml)
 
 
 You must install the wireless toolkit and define _WTK_HOME_ for this script to work.
@@ -205,9 +195,7 @@ All standard aspects of script engines including compiled statements are support
 
 You must include the library **lib/luaj-jse-3.0.jar** in your class path.
 
-A working example may be found in
-
-	[examples/jse/ScriptEngineSample.java](examples/jse/ScriptEngineSample.java)
+A working example may be found in [examples/jse/ScriptEngineSample.java](examples/jse/ScriptEngineSample.java)
 
 
 To compile and run it using Java 1.6 or higher:
@@ -378,10 +366,8 @@ The _lua_ connand line tool includes _luajava_.
 
 ## API Javadoc
 
-The javadoc for the main classes in the LuaJ API are on line at
+The javadoc for the main classes in the LuaJ API are on line at [docs/api](docs/api/index.html)
 
-<pre>	 [http://luaj.sourceforge.net/api/3.0](http://luaj.sourceforge.net/api/3.0/index.html)
-</pre>
 
 You can also build a local version from sources using
 
@@ -390,10 +376,8 @@ You can also build a local version from sources using
 
 ## LuaValue and Varargs
 
-All lua value manipulation is now organized around [LuaValue](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/LuaValue.html) which exposes the majority of interfaces used for lua computation.
+All lua value manipulation is now organized around [LuaValue](docs/api/org/luaj/vm2/LuaValue.html) which exposes the majority of interfaces used for lua computation. [org.luaj.vm2.LuaValue](docs/api/org/luaj/vm2/LuaValue.html)
 
-<pre>	 [org.luaj.vm2.LuaValue](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/LuaValue.html)
-</pre>
 
 ### Common Functions
 
@@ -416,10 +400,7 @@ _LuaValue_ exposes functions for each of the operations in LuaJ. Some commonly u
 
 ## Varargs
 
-The interface [Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html) provides an abstraction for both a variable argument list and multiple return values. For convenience, _LuaValue_ implements _Varargs_ so a single value can be supplied anywhere variable arguments are expected.
-
-<pre>	 [org.luaj.vm2.Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html)
-</pre>
+The interface [Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html) provides an abstraction for both a variable argument list and multiple return values. For convenience, _LuaValue_ implements _Varargs_ so a single value can be supplied anywhere variable arguments are expected. [org.luaj.vm2.Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html)
 
 ### Common Functions
 
@@ -433,17 +414,11 @@ _Varargs_ exposes functions for accessing elements, and coercing them to specifi
 	optlong(int n,long d);  // return n if a long, d if no argument, or error if not a long
 </pre>
 
-See the [Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html) API for a complete list.
+See the [Varargs](docs/api/org/luaj/vm2/Varargs.html) API for a complete list.
 
 ## LibFunction
 
-The simplest way to implement a function is to choose a base class based on the number of arguments to the function. LuaJ provides 5 base classes for this purpose, depending if the function has 0, 1, 2, 3 or variable arguments, and if it provide multiple return values.
-
-	 [org.luaj.vm2.lib.ZeroArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/ZeroArgFunction.html)
-	 [org.luaj.vm2.lib.OneArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/OneArgFunction.html)
-	 [org.luaj.vm2.lib.TwoArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/TwoArgFunction.html)
-	 [org.luaj.vm2.lib.ThreeArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/ThreeArgFunction.html)
-	 [org.luaj.vm2.lib.VarArgFunction](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/VarArgFunction.html)
+The simplest way to implement a function is to choose a base class based on the number of arguments to the function. LuaJ provides 5 base classes for this purpose, depending if the function has 0, 1, 2, 3 or variable arguments, and if it provide multiple return values. [org.luaj.vm2.lib.ZeroArgFunction](docs/api/org/luaj/vm2/lib/ZeroArgFunction.html), [org.luaj.vm2.lib.OneArgFunction](docs/api/org/luaj/vm2/lib/OneArgFunction.html), [org.luaj.vm2.lib.TwoArgFunction](docs/api/org/luaj/vm2/lib/TwoArgFunction.html), [org.luaj.vm2.lib.ThreeArgFunction](docs/api/org/luaj/vm2/lib/ThreeArgFunction.html), [org.luaj.vm2.lib.VarArgFunction](docs/api/org/luaj/vm2/lib/VarArgFunction.html)
 
 
 Each of these functions has an abstract method that must be implemented, and argument fixup is done automatically by the classes as each Java function is invoked.
@@ -534,7 +509,7 @@ For this example to work the code in _hyperbolic.java_ must be compiled and put 
 
 Closures still exist in this framework, but are optional, and are only used to implement lua bytecode execution, and is generally not directly manipulated by the user of luaj.
 
-See the [org.luaj.vm2.LuaClosure](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/LuaClosure.html) javadoc for details on using that class directly.
+See the [org.luaj.vm2.LuaClosure](docs/api/org/luaj/vm2/org/luaj/vm2/LuaClosure.html) javadoc for details on using that class directly.
 
 # 6 - <a name="6">Parser</a>
 
@@ -571,12 +546,10 @@ For example, to parse a file and print all variable names, use code like:
 	}
 </pre>
 
-An example that prints locations of all function definitions in a file may be found in
-
-	[examples/jse/SampleParser.java](examples/jse/SampleParser.java)
+An example that prints locations of all function definitions in a file may be found in [examples/jse/SampleParser.java](examples/jse/SampleParser.java)
 
 
-See the [org.luaj.vm2.ast package](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/ast/package-summary.html) javadoc for the API relating to the syntax tree that is produced.
+See the [org.luaj.vm2.ast package](docs/api/org/luaj/vm2/ast/package-summary.html) javadoc for the API relating to the syntax tree that is produced.
 
 # 7 - <a name="7">Building and Testing</a>
 
@@ -602,9 +575,7 @@ while for JME projects, use the luaj-jme jar:
    </dependency>
 </pre>
 
-An example skelton maven pom file for a skeleton project is in
-
-	[examples/maven/pom.xml](examples/maven/pom.xml)
+An example skelton maven pom file for a skeleton project is in [examples/maven/pom.xml](examples/maven/pom.xml)
 
 ## Building the jars
 
@@ -629,8 +600,7 @@ Unit test scripts can be found in these locations
 
 ## Code coverage
 
-A build script for running unit tests and producing code coverage statistics is in
-	[build-coverage.xml](build-coverage.xml)
+A build script for running unit tests and producing code coverage statistics is in [build-coverage.xml](build-coverage.xml)
 
 
 It relies on the cobertura code coverage library.
@@ -639,10 +609,7 @@ It relies on the cobertura code coverage library.
 
 ## Downloads and Project Pages
 
-Downloads for all version available on SourceForge or LuaForge. Sources are hosted on SourceForge and available via sourceforge.net
-
-	[SourceForge Luaj Project Page](http://luaj.sourceforge.net/)
-	[SourceForge Luaj Download Area](http://sourceforge.net/project/platformdownload.php?group_id=197627)
+Downloads for all version available on SourceForge or LuaForge. Sources are hosted on SourceForge and available via sourceforge.net [SourceForge Luaj Project Page](http://luaj.sourceforge.net/), [SourceForge Luaj Download Area](http://sourceforge.net/project/platformdownload.php?group_id=197627)
 
 
 The jar files may also be downloaded from the maven central repository, see [Maven Integration](#maven).
