@@ -1,4 +1,4 @@
-![alt text](https://github.com/Tidal-Loop/LuaJ/blob/master/icon.gif "LuaJ") 
+![LuaJ](https://raw.githubusercontent.com/Tidal-Loop/LuaJ/master/icon.gif)
 #LuaJ
 * * *
 
@@ -620,21 +620,21 @@ Files are no longer hosted at LuaForge.
 
 ## Main Changes by Version
 
-|
 
-|   **2.0** |
+
+**2.0** 
 
 *   Initial release of 2.0 version
 
- |
-|   **2.0.1** |
+ 
+**2.0.1** 
 
 *   Improve correctness of singleton construction related to static initialization
 *   Fix nan-related error in constant folding logic that was failing on some JVMs
 *   JSR-223 fixes: add META-INF/services entry in jse jar, improve bindings implementation
 
- |
-|   **2.0.2** |
+ 
+**2.0.2** 
 
 *   JSR-223 bindings change: non Java-primitives will now be passed as LuaValue
 *   JSR-223 enhancement: allow both ".lua" and "lua" as extensions in getScriptEngine()
@@ -644,8 +644,8 @@ Files are no longer hosted at LuaForge.
 *   Major refactor of luajava type coercion logic, improve method selection.
 *   Add lib/luaj-sources-2.0.2.jar for easier integration into an IDE such as Netbeans
 
- |
-|   **2.0.3** |
+ 
+**2.0.3** 
 
 *   Improve coroutine state logic including let unreferenced coroutines be garbage collected
 *   Fix lua command vararg values passed into main script to match what is in global arg table
@@ -656,8 +656,8 @@ Files are no longer hosted at LuaForge.
 *   Improve compatibility of table.remove()
 *   Disallow base library setfenv() calls on Java functions
 
- |
-|   **3.0-alpha1** |
+ 
+**3.0-alpha1** 
 
 *   Convert internal and external API's to match lua 5.2.x environment changes
 *   Add bit32 library
@@ -666,13 +666,13 @@ Files are no longer hosted at LuaForge.
 *   Remove compatibility functions like table.getn(), table.maxn(), table.foreach(), and math.log10()
 *   Add ability to create runnable jar file from lua script with sample build file build-app.xml
 
- |
-|   **3.0-alpha2** |
+ 
+**3.0-alpha2** 
 
 *   Supply environment as second argument to LibFunction when loading via require()
 
- |
-|   **3.0-alpha3** |
+ 
+**3.0-alpha3** 
 
 *   Fix bug 3597515 memory leak due to string caching by simplifying caching logic.
 *   Fix bug 3565008 so that short substrings are backed by short arrays.
@@ -680,8 +680,8 @@ Files are no longer hosted at LuaForge.
 *   Add artifacts to Maven central repository.
 *   Limit pluggable scripting to use compatible bindings and contexts, implement redirection.
 
- |
-|   **3.0-beta1** |
+ 
+**3.0-beta1** 
 
 *   Fix bug that didn't read package.path from environment.
 *   Fix pluggable scripting engine lookup, simplify implementation, and add unit tests.
@@ -697,8 +697,7 @@ Files are no longer hosted at LuaForge.
 *   Existing tables can now be made weak (fixes issue #16).
 *   More compatible allocation of table entries in array vs. hash (fixes issue #8).
 
- |
-|   **3.0-beta2** |
+**3.0-beta2** 
 
 *   Fix os.time() to return a number of seconds instead of milliseconds.
 *   Implement formatting with os.date(), and table argument for os.time().
@@ -710,8 +709,8 @@ Files are no longer hosted at LuaForge.
 *   Make error message handler function in xpcall per-thread instead of per-globals.
 *   Establish "org.luaj.debug" and "org.luaj.luajc" system properties to configure scripting engine.
 
- |
-|   **3.0** |
+ 
+**3.0** 
 
 *   Fix maven sample code.
 *   Add sample code for Android Application that uses luaj.
@@ -726,9 +725,7 @@ Files are no longer hosted at LuaForge.
 *   In CoerceJavaToLua.coerse(), coerce LuaValue to same value (fixes issue #29).
 *   Fix line number reporting in debug stack traces (fixes issue #30).
 
- |
 
- |
 
 ## Known Issues
 
