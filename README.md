@@ -2,7 +2,7 @@
 
 * * *
 
-# [![](http://sourceforge.net/dbimage.php?id=196139)](README.html) Getting Started with LuaJ LITE. It's modified and is missing some limbs.
+#Getting Started with LuaJ.
 
 James Roseborough, Ian Farmer, Version 3.0
 
