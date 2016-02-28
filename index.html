@@ -795,47 +795,50 @@ public class hyperbolic extends TwoArgFunction {
 <h2>
 <a id="main-changes-by-version" class="anchor" href="#main-changes-by-version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Changes by Version</h2>
 
-<p>  <strong>2.0</strong> </p>
+<p><strong>2.0</strong> </p>
 
 <ul>
 <li>  Initial release of 2.0 version</li>
 </ul>
 
-<p>  <strong>2.0.1</strong> </p>
+<p><strong>2.0.1</strong> </p>
 
 <ul>
 <li>  Improve correctness of singleton construction related to static initialization</li>
 <li>  Fix nan-related error in constant folding logic that was failing on some JVMs</li>
-<li>
-<p>JSR-223 fixes: add META-INF/services entry in jse jar, improve bindings implementation</p>
+<li>  JSR-223 fixes: add META-INF/services entry in jse jar, improve bindings implementation</li>
+</ul>
 
-<p>  <strong>2.0.2</strong> </p>
-</li>
-<li><p>JSR-223 bindings change: non Java-primitives will now be passed as LuaValue</p></li>
+<p><strong>2.0.2</strong> </p>
+
+<ul>
+<li>  JSR-223 bindings change: non Java-primitives will now be passed as LuaValue</li>
 <li>  JSR-223 enhancement: allow both ".lua" and "lua" as extensions in getScriptEngine()</li>
 <li>  JSR-223 fix: use system class loader to support using luaj as JRE extension</li>
 <li>  Improve selection logic when binding to overloaded functions using luajava</li>
 <li>  Enhance javadoc, put it <a href="docs/api/index.html">in distribution</a> and <a href="http://luaj.sourceforge.net/api/3.0/index.html">on line</a>
 </li>
 <li>  Major refactor of luajava type coercion logic, improve method selection.</li>
-<li>
-<p>Add lib/luaj-sources-2.0.2.jar for easier integration into an IDE such as Netbeans</p>
+<li>  Add lib/luaj-sources-2.0.2.jar for easier integration into an IDE such as Netbeans</li>
+</ul>
 
-<p>  <strong>2.0.3</strong> </p>
-</li>
-<li><p>Improve coroutine state logic including let unreferenced coroutines be garbage collected</p></li>
+<p><strong>2.0.3</strong> </p>
+
+<ul>
+<li>  Improve coroutine state logic including let unreferenced coroutines be garbage collected</li>
 <li>  Fix lua command vararg values passed into main script to match what is in global arg table</li>
 <li>  Add arithmetic metatag processing when left hand side is a number and right hand side has metatable</li>
 <li>  Fix load(func) when mutiple string fragments are supplied by calls to func</li>
 <li>  Allow access to public members of private inner classes where possible</li>
 <li>  Turn on error reporting in LuaParser so line numbers ar available in ParseException</li>
 <li>  Improve compatibility of table.remove()</li>
-<li>
-<p>Disallow base library setfenv() calls on Java functions</p>
+<li>  Disallow base library setfenv() calls on Java functions</li>
+</ul>
 
-<p>  <strong>3.0-alpha1</strong> </p>
-</li>
-<li><p>Convert internal and external API's to match lua 5.2.x environment changes</p></li>
+<p><strong>3.0-alpha1</strong> </p>
+
+<ul>
+<li>  Convert internal and external API's to match lua 5.2.x environment changes</li>
 <li>  Add bit32 library</li>
 <li>  Add explicit Globals object to manage global state, especially to imrpove thread safety</li>
 <li>  Drop support for lua source to java surce (lua2java) in favor of direct java bytecode output (luajc)</li>
@@ -843,24 +846,26 @@ public class hyperbolic extends TwoArgFunction {
 <li>  Add ability to create runnable jar file from lua script with sample build file build-app.xml</li>
 </ul>
 
-<p>  <strong>3.0-alpha2</strong> </p>
+<p><strong>3.0-alpha2</strong> </p>
 
 <ul>
-<li>
-<p>Supply environment as second argument to LibFunction when loading via require()</p>
+<li>  Supply environment as second argument to LibFunction when loading via require()</li>
+</ul>
 
-<p>  <strong>3.0-alpha3</strong> </p>
-</li>
-<li><p>Fix bug 3597515 memory leak due to string caching by simplifying caching logic.</p></li>
+<p><strong>3.0-alpha3</strong> </p>
+
+<ul>
+<li>  Fix bug 3597515 memory leak due to string caching by simplifying caching logic.</li>
 <li>  Fix bug 3565008 so that short substrings are backed by short arrays.</li>
 <li>  Fix bug 3495802 to return correct offset of substrings from string.find().</li>
 <li>  Add artifacts to Maven central repository.</li>
-<li>
-<p>Limit pluggable scripting to use compatible bindings and contexts, implement redirection.</p>
+<li>  Limit pluggable scripting to use compatible bindings and contexts, implement redirection.</li>
+</ul>
 
-<p>  <strong>3.0-beta1</strong> </p>
-</li>
-<li><p>Fix bug that didn't read package.path from environment.</p></li>
+<p><strong>3.0-beta1</strong> </p>
+
+<ul>
+<li>  Fix bug that didn't read package.path from environment.</li>
 <li>  Fix pluggable scripting engine lookup, simplify implementation, and add unit tests.</li>
 <li>  Coerce script engine eval() return values to Java.</li>
 <li>  Fix Lua to Java coercion directly on Java classes.</li>
@@ -872,12 +877,13 @@ public class hyperbolic extends TwoArgFunction {
 <li>  Major refactor of table implementation.</li>
 <li>  Improved behavior of next() (fixes issue #7).</li>
 <li>  Existing tables can now be made weak (fixes issue #16).</li>
-<li>
-<p>More compatible allocation of table entries in array vs. hash (fixes issue #8).</p>
+<li>  More compatible allocation of table entries in array vs. hash (fixes issue #8).</li>
+</ul>
 
-<p>  <strong>3.0-beta2</strong> </p>
-</li>
-<li><p>Fix os.time() to return a number of seconds instead of milliseconds.</p></li>
+<p><strong>3.0-beta2</strong> </p>
+
+<ul>
+<li>  Fix os.time() to return a number of seconds instead of milliseconds.</li>
 <li>  Implement formatting with os.date(), and table argument for os.time().</li>
 <li>  LuaValue.checkfunction() now returns LuaFunction.</li>
 <li>  Refactor APIs related to compiling and loading scripts to provide methods on Globals.</li>
@@ -885,12 +891,13 @@ public class hyperbolic extends TwoArgFunction {
 <li>  Add optional -c encoding flag to lua, luac, and luajc tools to control source encoding.</li>
 <li>  Let errors thrown in debug hooks bubble up to the running coroutine.</li>
 <li>  Make error message handler function in xpcall per-thread instead of per-globals.</li>
-<li>
-<p>Establish "org.luaj.debug" and "org.luaj.luajc" system properties to configure scripting engine.</p>
+<li>  Establish "org.luaj.debug" and "org.luaj.luajc" system properties to configure scripting engine.</li>
+</ul>
 
-<p>  <strong>3.0</strong> </p>
-</li>
-<li><p>Fix maven sample code.</p></li>
+<p><strong>3.0</strong> </p>
+
+<ul>
+<li>  Fix maven sample code.</li>
 <li>  Add sample code for Android Application that uses luaj.</li>
 <li>  Add sample code for Applet that uses luaj.</li>
 <li>  Fix balanced match for empty string (fixes issue #23).</li>
