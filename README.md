@@ -1,5 +1,5 @@
-# LuaJ
-
+![alt text](https://github.com/Tidal-Loop/LuaJ/blob/master/icon.gif "LuaJ") 
+#LuaJ
 * * *
 
 #Getting Started with LuaJ.
