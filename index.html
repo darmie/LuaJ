@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Luaj by Tidal-Loop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Luaj</h1>
+      <h2 class="project-tagline">Lightweight, fast, Java-centric Lua interpreter written for JME and JSE, with string, table, package, math, io, os, debug, coroutine &amp; luajava libraries, JSR-223 bindings, all metatags, weak tables and unique direct lua-to-java-bytecode compiling.</h2>
+      <a href="https://github.com/Tidal-Loop/LuaJ" class="btn">View on GitHub</a>
+      <a href="https://github.com/Tidal-Loop/LuaJ/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Tidal-Loop/LuaJ/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><img src="https://github.com/Tidal-Loop/LuaJ/blob/master/icon.gif" alt="alt text" title="LuaJ"> </p>
+
+<h1>
+<a id="luaj" class="anchor" href="#luaj" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LuaJ</h1>
+
+<hr>
+
+<h1>
+<a id="getting-started-with-luaj" class="anchor" href="#getting-started-with-luaj" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started with LuaJ.</h1>
+
+<p>James Roseborough, Ian Farmer, Version 3.0</p>
+
+<p>Copyright © 2009-2014 Luaj.org. (Also Nathan, Marcus, and Pratik for the crazy hack job with the chainsaw that makes it make it through proguard on Android without warnings.) Freely available under the terms of the <a href="http://sourceforge.net/dbimage.php?id=196142">Luaj license</a>.</p>
+
+<hr>
+
+<p><a href="#1">introduction</a> · <a href="#2">examples</a> · <a href="#3">concepts</a> · <a href="#4">libraries</a> · <a href="#5">luaj api</a> · <a href="#6">parser</a> · <a href="#7">building</a> · <a href="#8">downloads</a> · <a href="#9">release notes</a></p>
+
+<h1>
+<a id="1---introduction" class="anchor" href="#1---introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1 - <a name="1">Introduction</a>
+</h1>
+
+<h2>
+<a id="goals-of-luaj" class="anchor" href="#goals-of-luaj" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Goals of Luaj</h2>
+
+<p>Luaj is a lua interpreter based on the 5.2.x version of lua with the following goals in mind:</p>
+
+<ul>
+<li>  Java-centric implementation of lua vm built to leverage standard Java features.</li>
+<li>  Lightweight, high performance execution of lua.</li>
+<li>  Multi-platform to be able to run on JME, JSE, or JEE environments.</li>
+<li>  Complete set of libraries and tools for integration into real-world projects.</li>
+<li>  Dependable due to sufficient unit testing of vm and library features.</li>
+</ul>
+
+<h2>
+<a id="luaj-version-and-lua-versions" class="anchor" href="#luaj-version-and-lua-versions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Luaj version and Lua Versions</h2>
+
+<h3>
+<a id="luaj-30x" class="anchor" href="#luaj-30x" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Luaj 3.0.x</h3>
+
+<p>Support for lua 5.2.x features:</p>
+
+<ul>
+<li>  _ENV environments model.</li>
+<li>  yield from pcall or metatags.</li>
+<li>  Bitwise operator library.</li>
+</ul>
+
+<p>It also includes miscellaneous improvements over luaj 2.0.x:</p>
+
+<ul>
+<li>  Better thread safety.</li>
+<li>  More compatible table behavior.</li>
+<li>  Better coroutine-related garbage collection.</li>
+<li>  Maven integration.</li>
+<li>  Better debug reporting when using closures.</li>
+<li>  Line numbers in parse syntax tree.</li>
+</ul>
+
+<h3>
+<a id="luaj-20x" class="anchor" href="#luaj-20x" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Luaj 2.0.x</h3>
+
+<p>Support for lua 5.1.x features, plus:</p>
+
+<ul>
+<li>  Support for compiling lua source code into Java source code.</li>
+<li>  Support for compiling lua bytecode directly into Java bytecode.</li>
+<li>  Stackless vm design centered around dynamically typed objects.</li>
+<li>  Good alignment with C API (see <a href="names.csv">names.csv</a> for details)</li>
+<li>  Implementation of weak keys and values, and all metatags.</li>
+</ul>
+
+<h3>
+<a id="luaj-10x" class="anchor" href="#luaj-10x" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Luaj 1.0.x</h3>
+
+<p>Support for most lua 5.1.x features.</p>
+
+<h2>
+<a id="performance" class="anchor" href="#performance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Performance</h2>
+
+<p>Good performance is a major goal of luaj. The following table provides measured execution times on a subset of benchmarks from <a href="http://shootout.alioth.debian.org/">the computer language benchmarks game</a> in comparison with the standard C distribution.</p>
+
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Version</th>
+<th>Mode</th>
+<th>Benchmark execution time (sec)</th>
+<th></th>
+<th></th>
+<th></th>
+<th>Language</th>
+<th>Sample Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>binarytrees (15)</td>
+<td>fannkuch (10)</td>
+<td>nbody (1e6)</td>
+<td>nsieve 9</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>luaj</td>
+<td>3.0</td>
+<td>-b (luajc)</td>
+<td>2.980</td>
+<td>5.073</td>
+<td>16.794</td>
+<td>11.274</td>
+<td>Java</td>
+<td>java -cp luaj-jse-3.0.1.jar;bcel-5.2.jar lua -b fannkuch.lua 10</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>-n (interpreted)</td>
+<td>12.838</td>
+<td>23.290</td>
+<td>36.894</td>
+<td>15.163</td>
+<td></td>
+<td>java -cp luaj-jse-3.0.1.jar lua -n fannkuch.lua 10</td>
+</tr>
+<tr>
+<td>lua</td>
+<td>5.1.4</td>
+<td></td>
+<td>17.637</td>
+<td>16.044</td>
+<td>15.201</td>
+<td>5.477</td>
+<td>C</td>
+<td>lua fannkuch.lua 10</td>
+</tr>
+<tr>
+<td>jill</td>
+<td>1.0.1</td>
+<td></td>
+<td>44.512</td>
+<td>54.630</td>
+<td>72.172</td>
+<td>20.779</td>
+<td>Java</td>
+<td></td>
+</tr>
+<tr>
+<td>kahlua</td>
+<td>1.0</td>
+<td>jse</td>
+<td>22.963</td>
+<td>63.277</td>
+<td>68.223</td>
+<td>21.529</td>
+<td>Java</td>
+<td></td>
+</tr>
+<tr>
+<td>mochalua</td>
+<td>1.0</td>
+<td></td>
+<td>50.457</td>
+<td>70.368</td>
+<td>82.868</td>
+<td>41.262</td>
+<td>Java</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Luaj in interpreted mode performs well for the benchmarks, and even better when the lua-to-java-bytecode (luajc) compiler is used, and actually executes <em>faster</em> than C-based lua in some cases. It is also faster than Java-lua implementations Jill, Kahlua, and Mochalua for all benchmarks tested.</p>
+
+<h1>
+<a id="2---examples" class="anchor" href="#2---examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2 - <a name="2">Examples</a>
+</h1>
+
+<h2>
+<a id="run-a-lua-script-in-java-se" class="anchor" href="#run-a-lua-script-in-java-se" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run a lua script in Java SE</h2>
+
+<p>From the main distribution directory line type:</p>
+
+<pre>   java -cp lib/luaj-jse-3.0.jar lua examples/lua/hello.lua
+</pre>
+
+<p>You should see the following output:</p>
+
+<pre>   hello, world
+</pre>
+
+<p>To see how luaj can be used to acccess most Java API's including swing, try:</p>
+
+<pre>   java -cp lib/luaj-jse-3.0.jar lua examples/lua/swingapp.lua
+</pre>
+
+<p>Links to sources:   <a href="examples/lua/hello.lua">examples/lua/hello.lua</a> <a href="examples/lua/swingapp.lua">examples/lua/swingapp.lua</a></p>
+
+<h2>
+<a id="compile-lua-source-to-lua-bytecode" class="anchor" href="#compile-lua-source-to-lua-bytecode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compile lua source to lua bytecode</h2>
+
+<p>From the main distribution directory line type:</p>
+
+<pre>   java -cp lib/luaj-jse-3.0.jar luac examples/lua/hello.lua
+    java -cp lib/luaj-jse-3.0.jar lua luac.out
+</pre>
+
+<p>The compiled output "luac.out" is lua bytecode and should run and produce the same result.</p>
+
+<h2>
+<a id="compile-lua-source-or-bytecode-to-java-bytecode" class="anchor" href="#compile-lua-source-or-bytecode-to-java-bytecode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compile lua source or bytecode to java bytecode</h2>
+
+<p>Luaj can compile lua sources or binaries directly to java bytecode if the bcel library is on the class path. From the main distribution directory line type:</p>
+
+<pre>   ant bcel-lib
+    java -cp "lib/luaj-jse-3.0.jar;lib/bcel-5.2.jar" luajc -s examples/lua -d . hello.lua
+    java -cp "lib/luaj-jse-3.0.jar;." lua -l hello
+</pre>
+
+<p>The output <em>hello.class</em> is Java bytecode, should run and produce the same result. There is no runtime dependency on the bcel library, but the compiled classes must be in the class path at runtime, unless runtime jit-compiling via luajc and bcel are desired (see later sections).</p>
+
+<p>Lua scripts can also be run directly in this mode without precompiling using the <em>lua</em> command with the <strong><em>-b</em></strong> option and providing the <em>bcel</em> library in the class path:</p>
+
+<pre>   java -cp "lib/luaj-jse-3.0.jar;lib/bcel-5.2.jar" lua -b examples/lua/hello.lua
+</pre>
+
+<h2>
+<a id="run-a-script-in-a-java-application" class="anchor" href="#run-a-script-in-a-java-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run a script in a Java Application</h2>
+
+<p>A simple hello, world example in luaj is:</p>
+
+<pre>   import org.luaj.vm2.*;
+    import org.luaj.vm2.lib.jse.*;
+
+    Globals globals = JsePlatform.standardGlobals();
+    LuaValue chunk = globals.load("print 'hello, world'");
+    chunk.call();
+
+</pre>
+
+<p>Loading from a file is done via Globals.loadFile():</p>
+
+<pre>   LuaValue chunk = globals.loadfile("examples/lua/hello.lua");
+</pre>
+
+<p>Chunks can also be loaded from a <code>Reader</code> as text source</p>
+
+<pre>   chunk = globals.load(new StringReader("print 'hello, world'"), "main.lua");
+</pre>
+
+<p>or an InputStream to be loaded as text source "t", or binary lua file "b":</p>
+
+<pre>   chunk = globals.load(new FileInputSStream("examples/lua/hello.lua"), "main.lua", "bt"));
+</pre>
+
+<p>A simple example may be found in <a href="examples/jse/SampleJseMain.java">examples/jse/SampleJseMain.java</a></p>
+
+<p>You must include the library <strong>lib/luaj-jse-3.0.jar</strong> in your class path.</p>
+
+<h2>
+<a id="run-a-script-in-a-midlet" class="anchor" href="#run-a-script-in-a-midlet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run a script in a MIDlet</h2>
+
+<p>For MIDlets the <em>JmePlatform</em> is used instead:</p>
+
+<pre>   import org.luaj.vm2.*;
+    import org.luaj.vm2.lib.jme.*;
+
+    Globals globals = JmePlatform.standardGlobals();
+    LuaValue chunk = globals.loadfile("examples/lua/hello.lua");
+    chunk.call();
+</pre>
+
+<p>The file must be a resource within within the midlet jar for the loader to find it. Any files included via <em>require()</em> must also be part of the midlet resources.</p>
+
+<p>A simple example may be found in <a href="examples/jme/SampleMIDlet.java">examples/jme/SampleMIDlet.java</a></p>
+
+<p>You must include the library <strong>lib/luaj-jme-3.0.jar</strong> in your midlet jar.</p>
+
+<p>An ant script to build and run the midlet is in <a href="build-midlet.xml">build-midlet.xml</a></p>
+
+<p>You must install the wireless toolkit and define <em>WTK_HOME</em> for this script to work.</p>
+
+<h2>
+<a id="run-a-script-using-jsr-223-dynamic-scripting" class="anchor" href="#run-a-script-using-jsr-223-dynamic-scripting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run a script using JSR-223 Dynamic Scripting</h2>
+
+<p>The standard use of JSR-223 scripting engines may be used:</p>
+
+<pre>   ScriptEngineManager mgr = new ScriptEngineManager();
+    ScriptEngine e = mgr.getEngineByName("luaj");
+    e.put("x", 25);
+    e.eval("y = math.sqrt(x)");
+    System.out.println( "y="+e.get("y") );
+</pre>
+
+<p>You can also look up the engine by language "lua" or mimetypes "text/lua" or "application/lua".</p>
+
+<p>All standard aspects of script engines including compiled statements are supported.</p>
+
+<p>You must include the library <strong>lib/luaj-jse-3.0.jar</strong> in your class path.</p>
+
+<p>A working example may be found in <a href="examples/jse/ScriptEngineSample.java">examples/jse/ScriptEngineSample.java</a></p>
+
+<p>To compile and run it using Java 1.6 or higher:</p>
+
+<pre>   javac -cp lib/luaj-jse-3.0.jar examples/jse/ScriptEngineSample.java
+    java -cp "lib/luaj-jse-3.0.jar;examples/jse" ScriptEngineSample
+</pre>
+
+<h2>
+<a id="excluding-the-lua-bytecode-compiler" class="anchor" href="#excluding-the-lua-bytecode-compiler" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Excluding the lua bytecode compiler</h2>
+
+<p>By default, the compiler is included whenever <em>standardGlobals()</em> or <em>debugGlobals()</em> are called. Without a compiler, files can still be executed, but they must be compiled elsewhere beforehand. The "luac" utility is provided in the jse jar for this purpose, or a standard lua compiler can be used.</p>
+
+<p>To exclude the lua-to-lua-bytecode compiler, do not call <em>standardGlobals()</em> or <em>debugGlobals()</em> but instead initialize globals with including only those libraries that are needed and omitting the line:</p>
+
+<pre>   org.luaj.vm2.compiler.LuaC.install(globals);
+</pre>
+
+<h2>
+<a id="including-the-luajc-lua-bytecode-to-java-bytecode-compiler" class="anchor" href="#including-the-luajc-lua-bytecode-to-java-bytecode-compiler" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Including the LuaJC lua-bytecode-to-Java-bytecode compiler</h2>
+
+<p>To compile from lua to Java bytecode for all lua loaded at runtime, install the LuaJC compiler into a <em>globals</em> object use:</p>
+
+<pre>   org.luaj.vm2.jse.luajc.LuaJC.install(globals);
+</pre>
+
+<p>This will compile all lua bytecode into Java bytecode, regardless of if they are loaded as lua source or lua binary files.</p>
+
+<p>The requires <em>bcel</em> to be on the class path, and the ClassLoader of JSE or CDC.</p>
+
+<h1>
+<a id="3---concepts" class="anchor" href="#3---concepts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3 - <a name="3">Concepts</a>
+</h1>
+
+<h2>
+<a id="globals" class="anchor" href="#globals" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Globals</h2>
+
+<p>The old notion of platform has been replaced with creation of globals. The <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Globals.html">Globals</a> class holds global state needed for executing closures as well as providing convenience functions for compiling and loading scripts.</p>
+
+<h2>
+<a id="platform" class="anchor" href="#platform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Platform</h2>
+
+<p>To simplify construction of Globals, and encapsulate differences needed to support the diverse family of Java runtimes, luaj uses a Platform notion. Typically, a platform is used to construct a Globals, which is then provided as a global environment for client scripts.</p>
+
+<h3>
+<a id="jseplatform" class="anchor" href="#jseplatform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JsePlatform</h3>
+
+<p>The <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/jse/JsePlatform.html">JsePlatform</a> class can be used as a factory for globals in a typical Java SE application. All standard libraries are included, as well as the luajava library. The default search path is the current directory, and the math operations include all those supported by Java SE.</p>
+
+<h4>
+<a id="android" class="anchor" href="#android" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Android</h4>
+
+<p>Android applications should use the JsePlatform, and can include the <a href="#luajava">Luajava</a> library to simplify access to underlying Android APIs. A specialized Globals.finder should be provided to find scripts and data for loading. See <a href="https://github.com/Tidal-Loop/LuaJ/blob/master/examples/android/src/android/LuajView.java">examples/android/src/android/LuajView</a> for an example that loads from the "res" Android project directory. The ant build script is <a href="examples/android/build.xml">examples/android/build.xml</a>.</p>
+
+<h4>
+<a id="applet" class="anchor" href="#applet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Applet</h4>
+
+<p>Applets in browsers should use the JsePlatform. The permissions model in applets is highly restrictive, so a specialization of the <a href="#luajava">Luajava</a> library must be used that uses default class loading. This is illustrated in the sample Applet <a href="examples/jse/SampleApplet.java">examples/jse/SampleApplet.java</a>, which can be built using <a href="build-applet.xml">build-applet.xml</a>.</p>
+
+<h3>
+<a id="jmeplatform" class="anchor" href="#jmeplatform" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JmePlatform</h3>
+
+<p>The <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/jme/JmePlatform.html">JmePlatform</a> class can be used to set up the basic environment for a Java ME application. The default search path is limited to the jar resources, and the math operations are limited to those supported by Java ME. All libraries are included except luajava, and the os, io, and math libraries are limited to those functions that can be supported on that platform.</p>
+
+<h4>
+<a id="midlet" class="anchor" href="#midlet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MIDlet</h4>
+
+<p>MIDlets require the JmePlatform. The JME platform has several limitations which carry over to luaj. In particular Globals.finder is overridden to load as resources, so scripts should be colocated with class files in the MIDlet jar file. <a href="#luajava">Luajava</a> cannot be used. Camples code is in <a href="examples/jme/SampleMIDlet.java">examples/jme/SampleMIDlet.java</a>, which can be built using <a href="build-midlet.xml">build-midlet.xml</a>.</p>
+
+<h2>
+<a id="thread-safety" class="anchor" href="#thread-safety" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thread Safety</h2>
+
+<p>Luaj 3.0 can be run in multiple threads, with the following restrictions:</p>
+
+<ul>
+<li>  Each thread created by client code must be given its own, distinct Globals instance</li>
+<li>  Each thread must not be allowed to access Globals from other threads</li>
+<li>  Metatables for Number, String, Thread, Function, Boolean, and and Nil are shared and therefore should not be mutated once lua code is running in any thread.</li>
+</ul>
+
+<p>For an example of loading allocating per-thread Globals and invoking scripts in multiple threads see <a href="examples/jse/SampleMultiThreaded.java">examples/jse/SampleMultiThreaded.java</a></p>
+
+<p>As an alternative, the JSR-223 scripting interface can be used, and should always provide a separate Globals instance per script engine instance by using a ThreadLocal internally.</p>
+
+<h1>
+<a id="4---libraries" class="anchor" href="#4---libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4 - <a name="4">Libraries</a>
+</h1>
+
+<h2>
+<a id="standard-libraries" class="anchor" href="#standard-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Standard Libraries</h2>
+
+<p>Libraries are coded to closely match the behavior specified in See <a href="http://www.lua.org/manual/5.1/">standard lua documentation</a> for details on the library API's</p>
+
+<p>The following libraries are loaded by both <em>JsePlatform.standardGlobals()</em> and <em>JmePlatform.standardGlobals()</em>:</p>
+
+<pre>   base
+    bit32
+    coroutine
+    io
+    math
+    os
+    package
+    string
+    table
+</pre>
+
+<p>The <em>JsePlatform.standardGlobals()</em> globals also include:</p>
+
+<pre>   luajava
+</pre>
+
+<p>The <em>JsePlatform.debugGlobals()</em> and <em>JsePlatform.debugGlobals()</em> functions produce globals that include:</p>
+
+<pre>   debug
+</pre>
+
+<h3>
+<a id="io-library" class="anchor" href="#io-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>I/O Library</h3>
+
+<p>The implementation of the <em>io</em> library differs by platform owing to platform limitations.</p>
+
+<p>The <em>JmePlatform.standardGlobals()</em> instantiated the io library <em>io</em> in</p>
+
+<pre>   src/jme/org/luaj/vm2/lib/jme/JmeIoLib.java
+</pre>
+
+<p>The <em>JsePlatform.standardGlobals()</em> includes support for random access and is in</p>
+
+<pre>   src/jse/org/luaj/vm2/lib/jse/JseIoLib.java
+</pre>
+
+<h3>
+<a id="os-library" class="anchor" href="#os-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OS Library</h3>
+
+<p>The implementation of the <em>os</em> library also differs per platform.</p>
+
+<p>The basic <em>os</em> library implementation us used by <em>JmePlatform</em> and is in:</p>
+
+<pre>   src/core/org/luaj/lib/OsLib.java
+</pre>
+
+<p>A richer version for use by <em>JsePlatform</em> is :</p>
+
+<pre>   src/jse/org/luaj/vm2/lib/jse/JseOsLib.java
+</pre>
+
+<p>Time is a represented as number of seconds since the epoch, and locales are not implemented.</p>
+
+<h3>
+<a id="coroutine-library" class="anchor" href="#coroutine-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Coroutine Library</h3>
+
+<p>The <em>coroutine</em> library is implemented using one JavaThread per coroutine. This allows <em>coroutine.yield()</em> can be called from anywhere, as with the yield-from-anywhere patch in C-based lua.</p>
+
+<p>Luaj uses WeakReferences and the OrphanedThread error to ensure that coroutines that are no longer referenced are properly garbage collected. For thread safety, OrphanedThread should not be caught by Java code. See <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/LuaThread.html">LuaThread</a> and <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/OrphanedThread.html">OrphanedThread</a> javadoc for details.</p>
+
+<h3>
+<a id="debug-library" class="anchor" href="#debug-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Debug Library</h3>
+
+<p>The <em>debug</em> library is not included by default by <em>JmePlatform.standardGlobals()</em> or <em>JsePlatform.standardGlobsls()</em> . The functions <em>JmePlatform.debugGlobals()</em> and <em>JsePlatform.debugGlobsls()</em> create globals that contain the debug library in addition to the other standard libraries. To install dynamically from lua use java-class-based require::</p>
+
+<pre>   require 'org.luaj.vm2.lib.DebugLib'
+</pre>
+
+<p>The <em>lua</em> command line utility includes the <em>debug</em> library by default.</p>
+
+<h3>
+<a id="the-luajava-library" class="anchor" href="#the-luajava-library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="luajava">The Luajava Library</a>
+</h3>
+
+<p>The <em>JsePlatform.standardGlobals()</em> includes the <em>luajava</em> library, which simplifies binding to Java classes and methods. It is patterned after the original <a href="http://www.keplerproject.org/luajava/">luajava project</a>.</p>
+
+<p>The following lua script will open a swing frame on Java SE:</p>
+
+<pre>   jframe = luajava.bindClass( "javax.swing.JFrame" )
+    frame = luajava.newInstance( "javax.swing.JFrame", "Texts" );
+    frame:setDefaultCloseOperation(jframe.EXIT_ON_CLOSE)
+    frame:setSize(300,400)
+    frame:setVisible(true)
+</pre>
+
+<p>See a longer sample in <em>examples/lua/swingapp.lua</em> for details, including a simple animation loop, rendering graphics, mouse and key handling, and image loading. Or try running it using:</p>
+
+<pre>   java -cp lib/luaj-jse-3.0.jar lua examples/lua/swingapp.lua
+</pre>
+
+<p>The Java ME platform does not include this library, and it cannot be made to work because of the lack of a reflection API in Java ME.</p>
+
+<p>The <em>lua</em> connand line tool includes <em>luajava</em>.</p>
+
+<h1>
+<a id="5---luaj-api" class="anchor" href="#5---luaj-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5 - <a name="5">LuaJ API</a>
+</h1>
+
+<h2>
+<a id="api-javadoc" class="anchor" href="#api-javadoc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API Javadoc</h2>
+
+<p>The javadoc for the main classes in the LuaJ API are on line at <a href="docs/api/index.html">docs/api</a></p>
+
+<p>You can also build a local version from sources using</p>
+
+<pre>    ant doc
+</pre>
+
+<h2>
+<a id="luavalue-and-varargs" class="anchor" href="#luavalue-and-varargs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LuaValue and Varargs</h2>
+
+<p>All lua value manipulation is now organized around <a href="docs/api/org/luaj/vm2/LuaValue.html">LuaValue</a> which exposes the majority of interfaces used for lua computation. <a href="docs/api/org/luaj/vm2/LuaValue.html">org.luaj.vm2.LuaValue</a></p>
+
+<h3>
+<a id="common-functions" class="anchor" href="#common-functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common Functions</h3>
+
+<p><em>LuaValue</em> exposes functions for each of the operations in LuaJ. Some commonly used functions and constants include:</p>
+
+<pre>   call();               // invoke the function with no arguments
+    call(LuaValue arg1);  // call the function with 1 argument
+    invoke(Varargs arg);  // call the function with variable arguments, variable return values
+    get(int index);       // get a table entry using an integer key
+    get(LuaValue key);    // get a table entry using an arbitrary key, may be a LuaInteger
+    rawget(int index);    // raw get without metatable calls
+    valueOf(int i);       // return LuaValue corresponding to an integer
+    valueOf(String s);    // return LuaValue corresponding to a String
+    toint();              // return value as a Java int
+    tojstring();          // return value as a Java String
+    isnil();              // is the value nil
+    NIL;                  // the value nil
+    NONE;                 // a Varargs instance with no values   
+</pre>
+
+<h2>
+<a id="varargs" class="anchor" href="#varargs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Varargs</h2>
+
+<p>The interface <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html">Varargs</a> provides an abstraction for both a variable argument list and multiple return values. For convenience, <em>LuaValue</em> implements <em>Varargs</em> so a single value can be supplied anywhere variable arguments are expected. <a href="http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs.html">org.luaj.vm2.Varargs</a></p>
+
+<h3>
+<a id="common-functions-1" class="anchor" href="#common-functions-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common Functions</h3>
+
+<p><em>Varargs</em> exposes functions for accessing elements, and coercing them to specific types:</p>
+
+<pre>   narg();                 // return number of arguments
+    arg1();                 // return the first argument
+    arg(int n);             // return the nth argument
+    isnil(int n);           // true if the nth argument is nil
+    checktable(int n);      // return table or throw error
+    optlong(int n,long d);  // return n if a long, d if no argument, or error if not a long
+</pre>
+
+<p>See the <a href="docs/api/org/luaj/vm2/Varargs.html">Varargs</a> API for a complete list.</p>
+
+<h2>
+<a id="libfunction" class="anchor" href="#libfunction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LibFunction</h2>
+
+<p>The simplest way to implement a function is to choose a base class based on the number of arguments to the function. LuaJ provides 5 base classes for this purpose, depending if the function has 0, 1, 2, 3 or variable arguments, and if it provide multiple return values. <a href="docs/api/org/luaj/vm2/lib/ZeroArgFunction.html">org.luaj.vm2.lib.ZeroArgFunction</a>, <a href="docs/api/org/luaj/vm2/lib/OneArgFunction.html">org.luaj.vm2.lib.OneArgFunction</a>, <a href="docs/api/org/luaj/vm2/lib/TwoArgFunction.html">org.luaj.vm2.lib.TwoArgFunction</a>, <a href="docs/api/org/luaj/vm2/lib/ThreeArgFunction.html">org.luaj.vm2.lib.ThreeArgFunction</a>, <a href="docs/api/org/luaj/vm2/lib/VarArgFunction.html">org.luaj.vm2.lib.VarArgFunction</a></p>
+
+<p>Each of these functions has an abstract method that must be implemented, and argument fixup is done automatically by the classes as each Java function is invoked.</p>
+
+<p>An example of a function with no arguments but a useful return value might be:</p>
+
+<pre>   pubic class hostname extends ZeroArgFunction {
+        public LuaValue call() {
+            return valueOf(java.net.InetAddress.getLocalHost().getHostName());
+        }
+    }
+</pre>
+
+<p>The value <em>env</em> is the environment of the function, and is normally supplied by the instantiating object whenever default loading is used.</p>
+
+<p>Calling this function from lua could be done by:</p>
+
+<pre>
+    local hostname = require( 'hostname' )
+</pre>
+
+<p>while calling this function from Java would look like:</p>
+
+<pre>
+    new hostname().call();
+</pre>
+
+<p>Note that in both the lua and Java case, extra arguments will be ignored, and the function will be called. Also, no virtual machine instance is necessary to call the function. To allow for arguments, or return multiple values, extend one of the other base classes.</p>
+
+<h2>
+<a id="libraries-of-java-functions" class="anchor" href="#libraries-of-java-functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Libraries of Java Functions</h2>
+
+<p>When require() is called, it will first attempt to load the module as a Java class that implements LuaFunction. To succeed, the following requirements must be met:</p>
+
+<ul>
+<li>  The class must be on the class path with name, <em>modname</em>.</li>
+<li>  The class must have a public default constructor.</li>
+<li>  The class must inherit from LuaFunction.</li>
+</ul>
+
+<p>If luaj can find a class that meets these critera, it will instantiate it, cast it to <em>LuaFunction</em> then call() the instance with two arguments: the <em>modname</em> used in the call to require(), and the environment for that function. The Java may use these values however it wishes. A typical case is to create named functions in the environment that can be called from lua.</p>
+
+<p>A complete example of Java code for a simple toy library is in <a href="examples/jse/hyperbolic.java">examples/jse/hyperbolic.java</a></p>
+
+<pre>import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.*;
+
+public class hyperbolic extends TwoArgFunction {
+
+    public hyperbolic() {}
+
+    public LuaValue call(LuaValue modname, LuaValue env) {
+        LuaValue library = tableOf();
+        library.set( "sinh", new sinh() );
+        library.set( "cosh", new cosh() );
+        env.set( "hyperbolic", library );
+        return library;
+    }
+
+    static class sinh extends OneArgFunction {
+        public LuaValue call(LuaValue x) {
+            return LuaValue.valueOf(Math.sinh(x.checkdouble()));
+        }
+    }
+
+    static class cosh extends OneArgFunction {
+        public LuaValue call(LuaValue x) {
+            return LuaValue.valueOf(Math.cosh(x.checkdouble()));
+        }
+    }
+}
+</pre>
+
+<p>In this case the call to require invokes the library itself to initialize it. The library implementation puts entries into a table, and stores this table in the environment.</p>
+
+<p>The lua script used to load and test it is in <a href="examples/lua/hyperbolicapp.lua">examples/lua/hyperbolicapp.lua</a></p>
+
+<pre>   require 'hyperbolic'
+
+    print('hyperbolic', hyperbolic)
+    print('hyperbolic.sinh', hyperbolic.sinh)
+    print('hyperbolic.cosh', hyperbolic.cosh)
+
+    print('sinh(0.5)', hyperbolic.sinh(0.5))
+    print('cosh(0.5)', hyperbolic.cosh(0.5))
+</pre>
+
+<p>For this example to work the code in <em>hyperbolic.java</em> must be compiled and put on the class path.</p>
+
+<h2>
+<a id="closures" class="anchor" href="#closures" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Closures</h2>
+
+<p>Closures still exist in this framework, but are optional, and are only used to implement lua bytecode execution, and is generally not directly manipulated by the user of luaj.</p>
+
+<p>See the <a href="docs/api/org/luaj/vm2/org/luaj/vm2/LuaClosure.html">org.luaj.vm2.LuaClosure</a> javadoc for details on using that class directly.</p>
+
+<h1>
+<a id="6---parser" class="anchor" href="#6---parser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6 - <a name="6">Parser</a>
+</h1>
+
+<h2>
+<a id="javacc-grammar" class="anchor" href="#javacc-grammar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Javacc Grammar</h2>
+
+<p>A Javacc grammar was developed to simplify the creation of Java-based parsers for the lua language. The grammar is specified for <a href="https://javacc.dev.java.net/">javacc version 5.0</a> because that tool generates standalone parsers that do not require a separate runtime.</p>
+
+<p>A plain undecorated grammer that can be used for validation is available in <a href="grammar/Lua51.jj">grammar/Lua51.jj</a> while a grammar that generates a typed parse tree is in <a href="grammar/LuaParser.jj">grammar/LuaParser.jj</a></p>
+
+<h2>
+<a id="creating-a-parse-tree-from-lua-source" class="anchor" href="#creating-a-parse-tree-from-lua-source" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Parse Tree from Lua Source</h2>
+
+<p>The default lu compiler does a single-pass compile of lua source to lua bytecode, so no explicit parse tree is produced.</p>
+
+<p>To simplify the creation of abstract syntax trees from lua sources, the LuaParser class is generated as part of the JME build. To use it, provide an input stream, and invoke the root generator, which will return a Chunk if the file is valid, or throw a ParseException if there is a syntax error.</p>
+
+<p>For example, to parse a file and print all variable names, use code like:</p>
+
+<pre>   try {
+        String file = "main.lua";
+        LuaParser parser = new LuaParser(new FileInputStream(file));
+        Chunk chunk = parser.Chunk();
+        chunk.accept( new Visitor() {
+            public void visit(Exp.NameExp exp) {
+                System.out.println("Name in use: "+exp.name.name
+                    +" line "+exp.beginLine
+                    +" col "+exp.beginColumn);
+            }
+        } );
+    } catch ( ParseException e ) {
+        System.out.println("parse failed: " + e.getMessage() + "\n"
+            + "Token Image: '" + e.currentToken.image + "'\n"
+            + "Location: " + e.currentToken.beginLine + ":" + e.currentToken.beginColumn
+                     + "-" + e.currentToken.endLine + "," + e.currentToken.endColumn);
+    }
+</pre>
+
+<p>An example that prints locations of all function definitions in a file may be found in <a href="examples/jse/SampleParser.java">examples/jse/SampleParser.java</a></p>
+
+<p>See the <a href="docs/api/org/luaj/vm2/ast/package-summary.html">org.luaj.vm2.ast package</a> javadoc for the API relating to the syntax tree that is produced.</p>
+
+<h1>
+<a id="7---building-and-testing" class="anchor" href="#7---building-and-testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>7 - <a name="7">Building and Testing</a>
+</h1>
+
+<h2>
+<a id="maven-integration" class="anchor" href="#maven-integration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a name="maven">Maven integration</a>
+</h2>
+
+<p>The main jar files are now deployed in the maven central repository. To use them in your maven-based project, list them as a dependency:</p>
+
+<p>For JSE projects, add this dependency for the luaj-jse jar:</p>
+
+<pre>   
+      org.luaj
+      luaj-jse
+      3.0
+   
+</pre>
+
+<p>while for JME projects, use the luaj-jme jar:</p>
+
+<pre>   
+      org.luaj
+      luaj-jme
+      3.0
+   
+</pre>
+
+<p>An example skelton maven pom file for a skeleton project is in <a href="examples/maven/pom.xml">examples/maven/pom.xml</a></p>
+
+<h2>
+<a id="building-the-jars" class="anchor" href="#building-the-jars" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building the jars</h2>
+
+<p>An ant file is included in the root directory which builds the libraries by default.</p>
+
+<p>Other targets exist for creating distribution file an measuring code coverage of unit tests.</p>
+
+<h2>
+<a id="unit-tests" class="anchor" href="#unit-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unit tests</h2>
+
+<p>The main luaj JUnit tests are organized into a JUnit 3 suite:</p>
+
+<pre>   test/junit/org/luaj/vm2/AllTests.lua
+</pre>
+
+<p>Unit test scripts can be found in these locations</p>
+
+<pre>   test/lua/*.lua
+    test/lua/errors/*.lua
+    test/lua/perf/*.lua
+    test/lua/luaj3.0-tests.zip
+</pre>
+
+<h2>
+<a id="code-coverage" class="anchor" href="#code-coverage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code coverage</h2>
+
+<p>A build script for running unit tests and producing code coverage statistics is in <a href="build-coverage.xml">build-coverage.xml</a></p>
+
+<p>It relies on the cobertura code coverage library.</p>
+
+<h1>
+<a id="8---downloads" class="anchor" href="#8---downloads" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>8 - <a name="8">Downloads</a>
+</h1>
+
+<h2>
+<a id="downloads-and-project-pages" class="anchor" href="#downloads-and-project-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Downloads and Project Pages</h2>
+
+<p>Downloads for all version available on SourceForge or LuaForge. Sources are hosted on SourceForge and available via sourceforge.net <a href="http://luaj.sourceforge.net/">SourceForge Luaj Project Page</a>, <a href="http://sourceforge.net/project/platformdownload.php?group_id=197627">SourceForge Luaj Download Area</a></p>
+
+<p>The jar files may also be downloaded from the maven central repository, see <a href="#maven">Maven Integration</a>.</p>
+
+<p>Files are no longer hosted at LuaForge.</p>
+
+<h1>
+<a id="9---release-notes" class="anchor" href="#9---release-notes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>9 - <a name="9">Release Notes</a>
+</h1>
+
+<h2>
+<a id="main-changes-by-version" class="anchor" href="#main-changes-by-version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Changes by Version</h2>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>
+<p>Initial release of 2.0 version</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Improve correctness of singleton construction related to static initialization</p></li>
+<li>  Fix nan-related error in constant folding logic that was failing on some JVMs</li>
+<li>
+<p>JSR-223 fixes: add META-INF/services entry in jse jar, improve bindings implementation</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>JSR-223 bindings change: non Java-primitives will now be passed as LuaValue</p></li>
+<li>  JSR-223 enhancement: allow both ".lua" and "lua" as extensions in getScriptEngine()</li>
+<li>  JSR-223 fix: use system class loader to support using luaj as JRE extension</li>
+<li>  Improve selection logic when binding to overloaded functions using luajava</li>
+<li>  Enhance javadoc, put it <a href="docs/api/index.html">in distribution</a> and <a href="http://luaj.sourceforge.net/api/3.0/index.html">on line</a>
+</li>
+<li>  Major refactor of luajava type coercion logic, improve method selection.</li>
+<li>
+<p>Add lib/luaj-sources-2.0.2.jar for easier integration into an IDE such as Netbeans</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Improve coroutine state logic including let unreferenced coroutines be garbage collected</p></li>
+<li>  Fix lua command vararg values passed into main script to match what is in global arg table</li>
+<li>  Add arithmetic metatag processing when left hand side is a number and right hand side has metatable</li>
+<li>  Fix load(func) when mutiple string fragments are supplied by calls to func</li>
+<li>  Allow access to public members of private inner classes where possible</li>
+<li>  Turn on error reporting in LuaParser so line numbers ar available in ParseException</li>
+<li>  Improve compatibility of table.remove()</li>
+<li>
+<p>Disallow base library setfenv() calls on Java functions</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Convert internal and external API's to match lua 5.2.x environment changes</p></li>
+<li>  Add bit32 library</li>
+<li>  Add explicit Globals object to manage global state, especially to imrpove thread safety</li>
+<li>  Drop support for lua source to java surce (lua2java) in favor of direct java bytecode output (luajc)</li>
+<li>  Remove compatibility functions like table.getn(), table.maxn(), table.foreach(), and math.log10()</li>
+<li>
+<p>Add ability to create runnable jar file from lua script with sample build file build-app.xml</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li>
+<p>Supply environment as second argument to LibFunction when loading via require()</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Fix bug 3597515 memory leak due to string caching by simplifying caching logic.</p></li>
+<li>  Fix bug 3565008 so that short substrings are backed by short arrays.</li>
+<li>  Fix bug 3495802 to return correct offset of substrings from string.find().</li>
+<li>  Add artifacts to Maven central repository.</li>
+<li>
+<p>Limit pluggable scripting to use compatible bindings and contexts, implement redirection.</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Fix bug that didn't read package.path from environment.</p></li>
+<li>  Fix pluggable scripting engine lookup, simplify implementation, and add unit tests.</li>
+<li>  Coerce script engine eval() return values to Java.</li>
+<li>  Fix Lua to Java coercion directly on Java classes.</li>
+<li>  Fix Globals.load() to call the library with an empty modname and the globals as the environment.</li>
+<li>  Fix hash codes of double.</li>
+<li>  Fix bug in luajava overload resolution.</li>
+<li>  Fix luastring bug where parsing did not check for overflow.</li>
+<li>  Fix luastring bug where circular dependency randomly caused NullPointerException.</li>
+<li>  Major refactor of table implementation.</li>
+<li>  Improved behavior of next() (fixes issue #7).</li>
+<li>  Existing tables can now be made weak (fixes issue #16).</li>
+<li>
+<p>More compatible allocation of table entries in array vs. hash (fixes issue #8).</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Fix os.time() to return a number of seconds instead of milliseconds.</p></li>
+<li>  Implement formatting with os.date(), and table argument for os.time().</li>
+<li>  LuaValue.checkfunction() now returns LuaFunction.</li>
+<li>  Refactor APIs related to compiling and loading scripts to provide methods on Globals.</li>
+<li>  Add API to compile from Readers as well as InputStreams.</li>
+<li>  Add optional -c encoding flag to lua, luac, and luajc tools to control source encoding.</li>
+<li>  Let errors thrown in debug hooks bubble up to the running coroutine.</li>
+<li>  Make error message handler function in xpcall per-thread instead of per-globals.</li>
+<li>
+<p>Establish "org.luaj.debug" and "org.luaj.luajc" system properties to configure scripting engine.</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</li>
+<li><p>Fix maven sample code.</p></li>
+<li>  Add sample code for Android Application that uses luaj.</li>
+<li>  Add sample code for Applet that uses luaj.</li>
+<li>  Fix balanced match for empty string (fixes issue #23).</li>
+<li>  Pass user-supplied ScriptContext to script engine evaluation (fixes issue #21).</li>
+<li>  Autoflush and encode written bytes in script contexts (fixes issue #20).</li>
+<li>  Rename Globals.FINDER to Globals.finder.</li>
+<li>  Fix bug in Globals.UTF8Stream affecting loading from Readers.</li>
+<li>  Add buffered input for compiling and loading of scripts.</li>
+<li>  In CoerceJavaToLua.coerse(), coerce byte[] to LuaString (fixes issue #31).</li>
+<li>  In CoerceJavaToLua.coerse(), coerce LuaValue to same value (fixes issue #29).</li>
+<li>
+<p>Fix line number reporting in debug stack traces (fixes issue #30).</p>
+
+<table>
+<thead>
+<tr>
+</tr>
+</thead>
+<tbody>
+<tr>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+
+<h2>
+<a id="known-issues" class="anchor" href="#known-issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Known Issues</h2>
+
+<h3>
+<a id="limitations" class="anchor" href="#limitations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Limitations</h3>
+
+<ul>
+<li>  debug code may not be completely removed by some obfuscators</li>
+<li>  tail calls are not tracked in debug information</li>
+<li>  mixing different versions of luaj in the same java vm is not supported</li>
+<li>  values associated with weak keys may linger longer than expected</li>
+<li>  behavior of luaj when a SecurityManager is used has not been fully characterized</li>
+<li>  negative zero is treated as identical to integer value zero throughout luaj</li>
+<li>  lua compiled into java bytecode using luajc cannot use string.dump() or xpcall()</li>
+<li>  number formatting with string.format() is not supported</li>
+</ul>
+
+<h3>
+<a id="file-character-encoding" class="anchor" href="#file-character-encoding" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>File Character Encoding</h3>
+
+<p>Source files can be considered encoded in UTF-8 or ISO-8859-1 and results should be as expected, with literal string contianing quoted characters compiling to the same byte sequences as the input. For a non ASCII-compatible encoding such as EBSDIC, however, there are restrictions:</p>
+
+<ul>
+<li>  supplying a Reader to Globals.load() is preferred over InputStream variants</li>
+<li>  using FileReader or InputStreamReader to get the default OS encoding should work in most cases</li>
+<li>  string literals with quoted characters may not produce the expected values in generated code</li>
+<li>  command-line tools lua, luac, and luajc will require <em>-c Cp037</em> to specify the encoding</li>
+</ul>
+
+<p>These restrictions are mainly a side effect of how the language is defined as allowing byte literals within literal strings in source files. Code that is generated on the fly within lua and compiled with lua's <em>load()</em> function should work as expected, since these strings will never be represented with the host's native character encoding.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Tidal-Loop/LuaJ">Luaj</a> is maintained by <a href="https://github.com/Tidal-Loop">Tidal-Loop</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
