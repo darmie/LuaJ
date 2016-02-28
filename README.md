@@ -61,18 +61,16 @@ Support for most lua 5.1.x features.
 
 Good performance is a major goal of luaj. The following table provides measured execution times on a subset of benchmarks from [the computer language benchmarks game](http://shootout.alioth.debian.org/) in comparison with the standard C distribution.
 
-|
+| Project  | Version | Mode             | Benchmark execution time (sec) |               |             |          | Language | Sample Command                                                  |
+|----------|---------|------------------|--------------------------------|---------------|-------------|----------|----------|-----------------------------------------------------------------|
+|          |         |                  | binarytrees (15)               | fannkuch (10) | nbody (1e6) | nsieve 9 |          |                                                                 |
+| luaj     | 3.0     | -b (luajc)       | 2.980                          | 5.073         | 16.794      | 11.274   | Java     | java -cp luaj-jse-3.0.1.jar;bcel-5.2.jar lua -b fannkuch.lua 10 |
+|          |         | -n (interpreted) | 12.838                         | 23.290        | 36.894      | 15.163   |          | java -cp luaj-jse-3.0.1.jar lua -n fannkuch.lua 10              |
+| lua      | 5.1.4   |                  | 17.637                         | 16.044        | 15.201      | 5.477    | C        | lua fannkuch.lua 10                                             |
+| jill     | 1.0.1   |                  | 44.512                         | 54.630        | 72.172      | 20.779   | Java     |                                                                 |
+| kahlua   | 1.0     | jse              | 22.963                         | 63.277        | 68.223      | 21.529   | Java     |                                                                 |
+| mochalua | 1.0     |                  | 50.457                         | 70.368        | 82.868      | 41.262   | Java     |                                                                 |
 
-| <u>Project</u> | <u>Version</u> | <u>Mode</u> | <u>Benchmark execution time (sec)</u> | <u>Language</u> | <u>Sample command</u> |
- _binarytrees 15_ | _fannkuch 10_ | _nbody 1e6_ | _nsieve 9_ |
-| luaj | 3.0 | -b (luajc) | 2.980 | 5.073 | 16.794 | 11.274 | Java | java -cp luaj-jse-3.0.jar;bcel-5.2.jar lua **-b** fannkuch.lua 10 |
- -n (interpreted) | 12.838 | 23.290 | 36.894 | 15.163 | java -cp luaj-jse-3.0.jar lua -n fannkuch.lua 10 |
-| lua | 5.1.4 | 17.637 | 16.044 | 15.201 | 5.477 | C | lua fannkuch.lua 10 |
-| jill | 1.0.1 | 44.512 | 54.630 | 72.172 | 20.779 | Java |
-| kahlua | 1.0 | jse | 22.963 | 63.277 | 68.223 | 21.529 | Java |
-| mochalua | 1.0 | 50.457 | 70.368 | 82.868 | 41.262 | Java |
-
- |
 
 Luaj in interpreted mode performs well for the benchmarks, and even better when the lua-to-java-bytecode (luajc) compiler is used, and actually executes _faster_ than C-based lua in some cases. It is also faster than Java-lua implementations Jill, Kahlua, and Mochalua for all benchmarks tested.
 
