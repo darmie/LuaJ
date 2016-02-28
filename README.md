@@ -254,7 +254,7 @@ The [JsePlatform](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/lib/jse/JsePl
 
 #### Android
 
-Android applications should use the JsePlatform, and can include the [Luajava](#luajava) library to simplify access to underlying Android APIs. A specialized Globals.finder should be provided to find scripts and data for loading. See [examples/android/src/android/LuajView](examples/android/src/android/LuajView) for an example that loads from the "res" Android project directory. The ant build script is [examples/android/build.xml](examples/android/build.xml).
+Android applications should use the JsePlatform, and can include the [Luajava](#luajava) library to simplify access to underlying Android APIs. A specialized Globals.finder should be provided to find scripts and data for loading. See [examples/android/src/android/LuajView](https://github.com/Tidal-Loop/LuaJ/blob/master/examples/android/src/android/LuajView.java) for an example that loads from the "res" Android project directory. The ant build script is [examples/android/build.xml](examples/android/build.xml).
 
 #### Applet
 
