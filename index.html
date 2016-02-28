@@ -795,43 +795,21 @@ public class hyperbolic extends TwoArgFunction {
 <h2>
 <a id="main-changes-by-version" class="anchor" href="#main-changes-by-version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Main Changes by Version</h2>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-
 <p>  <strong>2.0</strong> </p>
 
 <ul>
-<li>
-<p>Initial release of 2.0 version</p>
+<li>  Initial release of 2.0 version</li>
+</ul>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-</li>
-<li><p>Improve correctness of singleton construction related to static initialization</p></li>
+<p>  <strong>2.0.1</strong> </p>
+
+<ul>
+<li>  Improve correctness of singleton construction related to static initialization</li>
 <li>  Fix nan-related error in constant folding logic that was failing on some JVMs</li>
 <li>
 <p>JSR-223 fixes: add META-INF/services entry in jse jar, improve bindings implementation</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>2.0.2</strong> </p>
 </li>
 <li><p>JSR-223 bindings change: non Java-primitives will now be passed as LuaValue</p></li>
 <li>  JSR-223 enhancement: allow both ".lua" and "lua" as extensions in getScriptEngine()</li>
@@ -843,14 +821,7 @@ public class hyperbolic extends TwoArgFunction {
 <li>
 <p>Add lib/luaj-sources-2.0.2.jar for easier integration into an IDE such as Netbeans</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>2.0.3</strong> </p>
 </li>
 <li><p>Improve coroutine state logic including let unreferenced coroutines be garbage collected</p></li>
 <li>  Fix lua command vararg values passed into main script to match what is in global arg table</li>
@@ -862,43 +833,23 @@ public class hyperbolic extends TwoArgFunction {
 <li>
 <p>Disallow base library setfenv() calls on Java functions</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>3.0-alpha1</strong> </p>
 </li>
 <li><p>Convert internal and external API's to match lua 5.2.x environment changes</p></li>
 <li>  Add bit32 library</li>
 <li>  Add explicit Globals object to manage global state, especially to imrpove thread safety</li>
 <li>  Drop support for lua source to java surce (lua2java) in favor of direct java bytecode output (luajc)</li>
 <li>  Remove compatibility functions like table.getn(), table.maxn(), table.foreach(), and math.log10()</li>
-<li>
-<p>Add ability to create runnable jar file from lua script with sample build file build-app.xml</p>
+<li>  Add ability to create runnable jar file from lua script with sample build file build-app.xml</li>
+</ul>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-</li>
+<p>  <strong>3.0-alpha2</strong> </p>
+
+<ul>
 <li>
 <p>Supply environment as second argument to LibFunction when loading via require()</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>3.0-alpha3</strong> </p>
 </li>
 <li><p>Fix bug 3597515 memory leak due to string caching by simplifying caching logic.</p></li>
 <li>  Fix bug 3565008 so that short substrings are backed by short arrays.</li>
@@ -907,14 +858,7 @@ public class hyperbolic extends TwoArgFunction {
 <li>
 <p>Limit pluggable scripting to use compatible bindings and contexts, implement redirection.</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>3.0-beta1</strong> </p>
 </li>
 <li><p>Fix bug that didn't read package.path from environment.</p></li>
 <li>  Fix pluggable scripting engine lookup, simplify implementation, and add unit tests.</li>
@@ -931,14 +875,7 @@ public class hyperbolic extends TwoArgFunction {
 <li>
 <p>More compatible allocation of table entries in array vs. hash (fixes issue #8).</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>3.0-beta2</strong> </p>
 </li>
 <li><p>Fix os.time() to return a number of seconds instead of milliseconds.</p></li>
 <li>  Implement formatting with os.date(), and table argument for os.time().</li>
@@ -951,14 +888,7 @@ public class hyperbolic extends TwoArgFunction {
 <li>
 <p>Establish "org.luaj.debug" and "org.luaj.luajc" system properties to configure scripting engine.</p>
 
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>  <strong>3.0</strong> </p>
 </li>
 <li><p>Fix maven sample code.</p></li>
 <li>  Add sample code for Android Application that uses luaj.</li>
@@ -971,20 +901,7 @@ public class hyperbolic extends TwoArgFunction {
 <li>  Add buffered input for compiling and loading of scripts.</li>
 <li>  In CoerceJavaToLua.coerse(), coerce byte[] to LuaString (fixes issue #31).</li>
 <li>  In CoerceJavaToLua.coerse(), coerce LuaValue to same value (fixes issue #29).</li>
-<li>
-<p>Fix line number reporting in debug stack traces (fixes issue #30).</p>
-
-<table>
-<thead>
-<tr>
-</tr>
-</thead>
-<tbody>
-<tr>
-</tr>
-</tbody>
-</table>
-</li>
+<li>  Fix line number reporting in debug stack traces (fixes issue #30).</li>
 </ul>
 
 <h2>
