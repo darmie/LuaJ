@@ -124,25 +124,25 @@ Lua scripts can also be run directly in this mode without precompiling using the
 ## Run a script in a Java Application
 
 A simple hello, world example in luaj is:
-
-<pre>	import org.luaj.vm2.*;
+```java
+	import org.luaj.vm2.*;
 	import org.luaj.vm2.lib.jse.*;
 
 	Globals globals = JsePlatform.standardGlobals();
 	LuaValue chunk = globals.load("print 'hello, world'");
 	chunk.call();
 
-</pre>
+```
 
 Loading from a file is done via Globals.loadFile():
-
-<pre>	LuaValue chunk = globals.loadfile("examples/lua/hello.lua");
-</pre>
+```java
+	LuaValue chunk = globals.loadfile("examples/lua/hello.lua");
+```
 
 Chunks can also be loaded from a `Reader` as text source
-
-<pre>	chunk = globals.load(new StringReader("print 'hello, world'"), "main.lua");
-</pre>
+```java
+	chunk = globals.load(new StringReader("print 'hello, world'"), "main.lua");
+```
 
 or an InputStream to be loaded as text source "t", or binary lua file "b":
 
@@ -157,14 +157,14 @@ You must include the library **lib/luaj-jse-3.0.jar** in your class path.
 ## Run a script in a MIDlet
 
 For MIDlets the _JmePlatform_ is used instead:
-
-<pre>	import org.luaj.vm2.*;
+```java
+	import org.luaj.vm2.*;
 	import org.luaj.vm2.lib.jme.*;
 
 	Globals globals = JmePlatform.standardGlobals();
 	LuaValue chunk = globals.loadfile("examples/lua/hello.lua");
 	chunk.call();
-</pre>
+```
 
 The file must be a resource within within the midlet jar for the loader to find it. Any files included via _require()_ must also be part of the midlet resources.
 
@@ -181,13 +181,13 @@ You must install the wireless toolkit and define _WTK_HOME_ for this script to w
 ## Run a script using JSR-223 Dynamic Scripting
 
 The standard use of JSR-223 scripting engines may be used:
-
-<pre>	ScriptEngineManager mgr = new ScriptEngineManager();
+```java
+	ScriptEngineManager mgr = new ScriptEngineManager();
 	ScriptEngine e = mgr.getEngineByName("luaj");
 	e.put("x", 25);
 	e.eval("y = math.sqrt(x)");
 	System.out.println( "y="+e.get("y") );
-</pre>
+```
 
 You can also look up the engine by language "lua" or mimetypes "text/lua" or "application/lua".
 
@@ -334,9 +334,9 @@ Luaj uses WeakReferences and the OrphanedThread error to ensure that coroutines 
 ### Debug Library
 
 The _debug_ library is not included by default by _JmePlatform.standardGlobals()_ or _JsePlatform.standardGlobsls()_ . The functions _JmePlatform.debugGlobals()_ and _JsePlatform.debugGlobsls()_ create globals that contain the debug library in addition to the other standard libraries. To install dynamically from lua use java-class-based require::
-
-<pre>	require 'org.luaj.vm2.lib.DebugLib'
-</pre>
+```lua
+	require 'org.luaj.vm2.lib.DebugLib'
+```
 
 The _lua_ command line utility includes the _debug_ library by default.
 
@@ -345,13 +345,13 @@ The _lua_ command line utility includes the _debug_ library by default.
 The _JsePlatform.standardGlobals()_ includes the _luajava_ library, which simplifies binding to Java classes and methods. It is patterned after the original [luajava project](http://www.keplerproject.org/luajava/).
 
 The following lua script will open a swing frame on Java SE:
-
-<pre>	jframe = luajava.bindClass( "javax.swing.JFrame" )
+```lua
+	jframe = luajava.bindClass( "javax.swing.JFrame" )
 	frame = luajava.newInstance( "javax.swing.JFrame", "Texts" );
 	frame:setDefaultCloseOperation(jframe.EXIT_ON_CLOSE)
 	frame:setSize(300,400)
 	frame:setVisible(true)
-</pre>
+```
 
 See a longer sample in _examples/lua/swingapp.lua_ for details, including a simple animation loop, rendering graphics, mouse and key handling, and image loading. Or try running it using:
 
@@ -382,8 +382,8 @@ All lua value manipulation is now organized around [LuaValue](docs/api/org/luaj/
 ### Common Functions
 
 _LuaValue_ exposes functions for each of the operations in LuaJ. Some commonly used functions and constants include:
-
-<pre>	call();               // invoke the function with no arguments
+```java
+	call();               // invoke the function with no arguments
 	call(LuaValue arg1);  // call the function with 1 argument
 	invoke(Varargs arg);  // call the function with variable arguments, variable return values
 	get(int index);       // get a table entry using an integer key
@@ -396,7 +396,7 @@ _LuaValue_ exposes functions for each of the operations in LuaJ. Some commonly u
 	isnil();              // is the value nil
 	NIL;                  // the value nil
 	NONE;                 // a Varargs instance with no values	 
-</pre>
+```
 
 ## Varargs
 
@@ -405,14 +405,14 @@ The interface [Varargs](http://luaj.sourceforge.net/api/3.0/org/luaj/vm2/Varargs
 ### Common Functions
 
 _Varargs_ exposes functions for accessing elements, and coercing them to specific types:
-
-<pre>	narg();                 // return number of arguments
+```java
+	narg();                 // return number of arguments
 	arg1();                 // return the first argument
 	arg(int n);             // return the nth argument
 	isnil(int n);           // true if the nth argument is nil
 	checktable(int n);      // return table or throw error
 	optlong(int n,long d);  // return n if a long, d if no argument, or error if not a long
-</pre>
+```
 
 See the [Varargs](docs/api/org/luaj/vm2/Varargs.html) API for a complete list.
 
@@ -424,27 +424,27 @@ The simplest way to implement a function is to choose a base class based on the 
 Each of these functions has an abstract method that must be implemented, and argument fixup is done automatically by the classes as each Java function is invoked.
 
 An example of a function with no arguments but a useful return value might be:
-
-<pre>	pubic class hostname extends ZeroArgFunction {
+```java
+	pubic class hostname extends ZeroArgFunction {
 		public LuaValue call() {
 			return valueOf(java.net.InetAddress.getLocalHost().getHostName());
 		}
 	}
-</pre>
+```
 
 The value _env_ is the environment of the function, and is normally supplied by the instantiating object whenever default loading is used.
 
 Calling this function from lua could be done by:
 
-<pre>
+```lua
 	local hostname = require( 'hostname' )
-</pre>
+```
 
 while calling this function from Java would look like:
 
-<pre>
+```lua
 	new hostname().call();
-</pre>
+```
 
 Note that in both the lua and Java case, extra arguments will be ignored, and the function will be called. Also, no virtual machine instance is necessary to call the function. To allow for arguments, or return multiple values, extend one of the other base classes.
 
@@ -459,8 +459,8 @@ When require() is called, it will first attempt to load the module as a Java cla
 If luaj can find a class that meets these critera, it will instantiate it, cast it to _LuaFunction_ then call() the instance with two arguments: the _modname_ used in the call to require(), and the environment for that function. The Java may use these values however it wishes. A typical case is to create named functions in the environment that can be called from lua.
 
 A complete example of Java code for a simple toy library is in [examples/jse/hyperbolic.java](examples/jse/hyperbolic.java)
-
-<pre>import org.luaj.vm2.LuaValue;
+```java
+import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.*;
 
 public class hyperbolic extends TwoArgFunction {
@@ -487,13 +487,14 @@ public class hyperbolic extends TwoArgFunction {
 		}
 	}
 }
-</pre>
+```
 
 In this case the call to require invokes the library itself to initialize it. The library implementation puts entries into a table, and stores this table in the environment.
 
 The lua script used to load and test it is in [examples/lua/hyperbolicapp.lua](examples/lua/hyperbolicapp.lua)
 
-<pre>	require 'hyperbolic'
+```lua
+	require 'hyperbolic'
 
 	print('hyperbolic', hyperbolic)
 	print('hyperbolic.sinh', hyperbolic.sinh)
@@ -501,7 +502,7 @@ The lua script used to load and test it is in [examples/lua/hyperbolicapp.lua](e
 
 	print('sinh(0.5)', hyperbolic.sinh(0.5))
 	print('cosh(0.5)', hyperbolic.cosh(0.5))
-</pre>
+```
 
 For this example to work the code in _hyperbolic.java_ must be compiled and put on the class path.
 
@@ -526,8 +527,8 @@ The default lu compiler does a single-pass compile of lua source to lua bytecode
 To simplify the creation of abstract syntax trees from lua sources, the LuaParser class is generated as part of the JME build. To use it, provide an input stream, and invoke the root generator, which will return a Chunk if the file is valid, or throw a ParseException if there is a syntax error.
 
 For example, to parse a file and print all variable names, use code like:
-
-<pre>	try {
+```java
+	try {
 		String file = "main.lua";
 		LuaParser parser = new LuaParser(new FileInputStream(file));
 		Chunk chunk = parser.Chunk();
@@ -544,7 +545,7 @@ For example, to parse a file and print all variable names, use code like:
 			+ "Location: " + e.currentToken.beginLine + ":" + e.currentToken.beginColumn
 			         + "-" + e.currentToken.endLine + "," + e.currentToken.endColumn);
 	}
-</pre>
+```
 
 An example that prints locations of all function definitions in a file may be found in [examples/jse/SampleParser.java](examples/jse/SampleParser.java)
 
